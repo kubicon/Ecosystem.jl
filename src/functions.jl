@@ -1,4 +1,4 @@
-
+test() = "hello"
 energy(m::Plant{Mushroom}) = -m.size
 EcosystemCore.eats(::Animal{Sheep}, ::Plant{Mushroom}) = true
 agent_type(p::Plant{P}) where {P} = nameof(P)
