@@ -3,6 +3,8 @@ energy(m::Plant{Mushroom}) = -m.size
 EcosystemCore.eats(::Animal{Sheep}, ::Plant{Mushroom}) = true
 agent_type(p::Plant{P}) where {P} = nameof(P)
 agent_type(p::Animal{A, S}) where {A, S} = nameof(A)
+
+
 function every_nth(f::Function,n::Int)
     x = 0
     function helper_function()
@@ -37,3 +39,10 @@ end
 agent_count(animal::Animal) = 1
 agent_count(plant::Plant) = size(plant) / plant.max_size # TODO: change it to max_size(plant), when it is forwarded from EcosystemCore
 agent_count(agents::Vector{<:Agent}) = isempty(agents) ? 0.0 : sum(agent_count.(agents))
+
+
+
+function eat!(a1::Animal{Sheep}, a2::Plant{Mushroom}, world::World)
+    incr_energy!(a1, -a2.size * Δenergy(a1))
+    a2.size = 0
+end
